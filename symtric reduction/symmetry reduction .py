@@ -73,14 +73,32 @@ class TicTacToe:
         if self.check_winner(COMPUTER):
             self.game_over(COMPUTER)
 
+    # def get_best_move(self):
+    #     best_score = float('-inf')
+    #     best_move = None
+    #
+    #     # Apply symmetry reduction
+    #     symmetrical_positions = [pos for pos in range(9) if self.board[pos] == EMPTY]
+    #     for pos in symmetrical_positions:
+    #         for sym_pos in SYMMETRY_MAP[pos]:
+    #             if self.board[sym_pos] == EMPTY:
+    #                 self.board[sym_pos] = COMPUTER
+    #                 score = self.minimax(self.board, PLAYER)
+    #                 self.board[sym_pos] = EMPTY
+    #                 if score > best_score:
+    #                     best_score = score
+    #                     best_move = sym_pos
+    #
+    #     return best_move
+
     def get_best_move(self):
         best_score = float('-inf')
         best_move = None
 
-        # Apply symmetry reduction
-        symmetrical_positions = [pos for pos in range(9) if self.board[pos] == EMPTY]
-        for pos in symmetrical_positions:
-            for sym_pos in SYMMETRY_MAP[pos]:
+        # Evaluate all symmetrical board positions
+        for pos in range(9):
+            sym_positions = SYMMETRY_MAP[pos]
+            for sym_pos in sym_positions:
                 if self.board[sym_pos] == EMPTY:
                     self.board[sym_pos] = COMPUTER
                     score = self.minimax(self.board, PLAYER)
